@@ -48,11 +48,12 @@ class Solution{
         for(int i=0;i<n;i++){
             if(arr[i]==0)return true;
         }
-        HashMap<Integer,Integer> hm = new HashMap<>();
+        HashMap<Integer,Integer> hm = new HashMap<>();//store prefix sum
         int s=0;
         for(int i=0;i<n;i++){
             s=s+arr[i];
-            if(s==0 || hm.containsKey(s)){
+            if(s==0 || hm.containsKey(s)){//if sum is repeating it means sum is been zero in
+            //between that's why even after adding more no. we are getting same sum
                 return true;
             }
             else{
