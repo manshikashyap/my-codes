@@ -1,0 +1,1 @@
+we will find total sum-x in middle somewhere. and rest will give us sum of x;
