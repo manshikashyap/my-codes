@@ -1,29 +1,15 @@
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n=nums.length;
-        int[] ans=new int[n-(k-1)];
-        int []nge=ngr(nums,n);
-        int i=0;
-        for(int ws=0,we=k-1;we<n;we++,ws++){
-            if(i<ws)i=ws;
-            while(nge[i]<=we){
-                i=nge[i];
-            }
-            ans[ws]=nums[i];
+        int[] r= new int[n-k+1];
+        Deque<Integer> q=new ArrayDeque<>();
+        int ri=0;
+        for(int i=0;i<n;i++){
+            if(!q.isEmpty() && q.peek()==i-k)q.poll();
+            while(!q.isEmpty() && nums[q.peekLast()]<nums[i])q.pollLast();
+            q.offer(i);
+            if(i>=k-1)r[ri++]=nums[q.peek()];
         }
-        return ans;
-    }
-    
-    public int[] ngr(int[] arr,int n){
-        int[] ans=new int[n];
-        Stack<Integer> st=new Stack<>();
-        for(int i=n-1;i>=0;i--){
-            int val=arr[i];
-            while(st.size()>0 && arr[st.peek()]<val)st.pop();
-            if(st.size()==0)ans[i]=n;
-            else ans[i]=st.peek();
-            st.push(i);
-        }
-        return ans;
+        return r;
     }
 }
